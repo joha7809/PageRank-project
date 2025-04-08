@@ -31,6 +31,7 @@ def random_surf(web, n):
 
     return ranking
 
-print(random_surf(W2,100))
+if __name__ == "__main__":
+    print(random_surf(W1,100))
 
 
