@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 def make_web(n,k,kmin=0):
 
@@ -8,9 +9,14 @@ def make_web(n,k,kmin=0):
     
     assert(k < n), "k skal være mindre end n (da man ikke kan linke til sig selv)"
     assert(kmin <= k), "kmin skal være mindre end eller lig med k"
-    keys = # Fjern pass og INDSÆT KODE HER - definér n nøgler fra 0 til n-1 
+    keys = [n for n in range(0, n)]
     web = dict()
     
     for j in keys:
-        numlinks = # INDSÆT KODE HER - generér et tilfældigt tal mellem kmin og k
-        web[j] = set() # INDSÆT KODE HER - Vælg et antal links (numlinks) fra de andre sider, undgå at vælge den nuværende side (j) og sørg for, at der ikke er duplikatlinks
+        numlinks = random.randint(kmin, k)
+        keys2 = keys[:]
+        keys2.remove(j)
+        web[j] = set(np.random.choice(keys2, numlinks, replace=False))
+        print(web[j])
+
+make_web(10,5)
