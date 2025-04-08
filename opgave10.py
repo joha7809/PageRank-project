@@ -16,24 +16,21 @@ def random_surf(web, n):
     ranking=dict()
     
     # INDSÆT KODE HER
+
+    ranking = {key:0 for key in web.keys()}
     
     current_page = np.random.choice(list(web.keys()), 1)[0]
-    print(current_page)
 
     for i in range(n):
         prob = surf_step(web,current_page)
         next = [key for key, value in prob.items() if value != 0]
 
         current_page = np.random.choice(next, 1)[0] if len(next) else np.random.choice(list(web.keys()), 1)[0]
-        ranking[current_page] = ranking[current_page] + 1 if ranking[current_page] else 1
-        print(current_page)
-        
 
-
-
+        ranking[current_page] += 1/n
 
     return ranking
 
-random_surf(W1,10)
+print(random_surf(W2,100))
 
 
