@@ -14,7 +14,7 @@ def surf_step(web, page):
     edges = web.get(page)
 
     # 1/N
-    chance = 1/len(edges)
+    chance = 1/len(edges) if len(edges) != 0 else 0
 
     #ex dict = {'p1': {'p2'} ... 'p5': {'p4'}}
     for key in nodes:
