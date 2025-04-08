@@ -1,6 +1,23 @@
+#Fra opgave 9
+from opgave9 import surf_step
+#Fra opgave 4
+from opgave4 import W1,W2
+
+
+
+
 def random_surf(web, n):
+
+    # Input: Et netværk som dictionary og antallet af skridt i random surf simuleringen
+    # Output: PageRank-værdier for hver side som en dictionary
+
+    ranking=dict()
+    
+    # INDSÆT KODE HER
     
 
 
-W1 = {'p1': {'p3', 'p5'}, 'p2': {'p4', 'p5'}, 'p3': {'p1'}, 'p4': {'p1', 'p2', 'p5'}}
-W2 = {'P1': {'P2'}, 'P2': {'P2'}, 'P3': {'P1'}, 'P4': {'P5'}, 'P5': {'P6'}, 'P6': {'P4'}}
+
+    return ranking
+
+random_surf(W1,4)

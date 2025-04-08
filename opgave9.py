@@ -27,8 +27,7 @@ def surf_step(web, page):
 
 
 #Fra opgave 4
-W1 = {'p1': {'p3', 'p5'}, 'p2': {'p4', 'p5'}, 'p3': {'p1'}, 'p4': {'p1', 'p2', 'p5'}, 'p5': {}}
-W2 = {'P1': {'P2'}, 'P2': {'P2'}, 'P3': {'P1'}, 'P4': {'P5'}, 'P5': {'P6'}, 'P6': {'P4'}}
+from opgave4 import W1,W2
 
 
-print(surf_step(W1,'p1'))
+#print(surf_step(W1,'p1'))
