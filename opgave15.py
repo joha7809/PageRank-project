@@ -21,11 +21,10 @@ def rank_update(web, PageRanks, page, d):
 
     for inbound_page in page_in:
         newValue += d*(PageRanks[inbound_page]/len(web[inbound_page]))
-    PageRanks[page] = newValue
 
 
     
-    return abs(newValue-oldValue)
+    return newValue-oldValue
 
 def recursive_PageRank(web, stopvalue=0.0001, max_iterations=200, d=0.85):
     """
@@ -45,24 +44,19 @@ def recursive_PageRank(web, stopvalue=0.0001, max_iterations=200, d=0.85):
         if v == {}:
             web[k] = web.keys()
 
-
-    initial_page_ranks = {k: 1/len(web.keys()) for k in web.keys()}
-    print(initial_page_ranks)
-
+    page_ranks = {k: 1/len(web.keys()) for k in web.keys()}
 
     for i in range(max_iterations):
-        increments = [rank_update(web, initial_page_ranks, page, d) for page in web.keys()]
-        
+        increments = [rank_update(web, page_ranks, page, d) for page in web.keys()]
+        for page, inc in zip(page_ranks, increments):
+            page_ranks[page] += inc
 
-    PageRanks = dict()
+        if max(map(abs, increments)) < stopvalue: break
 
-    
-
-    iteration = i
-    return initial_page_ranks, iteration
+    return page_ranks, i
 
 #rank_update(W1, 0, "p1", 0)
-rankings, it = recursive_PageRank(W1)
-
-print(sum(rankings.values()))
+rankings, it = recursive_PageRank(W1, 0.0001, 500, 1 )
 print(rankings)
+print(sum(rankings.values()))
+print(it)
