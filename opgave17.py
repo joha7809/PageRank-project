@@ -14,8 +14,23 @@ def modified_link_matrix(web, pagelist, d=0.85):
 
     N = len(web.keys())
     A = np.zeros([N, N])
-    for i in range(N):
-        if(pagelist)
+    for page, i in zip(pagelist, range(N)):
+        links = web[page]
+        links_len = len(links)
+
+        if not links:
+            #Handles sinks
+            A[i] = [1/N for _ in range(N)]
+            continue
+
+        for k in links:
+            idx = pagelist.index(k)
+            A[i,idx] = 1/links_len
+
+    E = np.ones([N,N])
+    
+    return d*A.transpose()+(1-d)*E/N
+
 
 
 modified_link_matrix(W1, list(W1.keys()))
