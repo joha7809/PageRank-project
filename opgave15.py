@@ -1,7 +1,7 @@
 from opgave4 import W1, W2
 
 
-def rank_update(web, PageRanks, page, d):
+def rank_update(web, PageRanks, page, d) -> tuple[float, dict[str, float]]:
     """
     Opdaterer værdien af PageRank for en side baseret på den rekursive formel
     Sider uden udgående links (sinks) behandles som om de linker til alle sider på nettet.
@@ -15,14 +15,18 @@ def rank_update(web, PageRanks, page, d):
         og denne funktion returnerer et float "increment", den (absolutte) forskel
         mellem den tidligere værdi og den opdaterede værdi af PR(p).
     """
-    page_in = [k for k,v in web.items() if page in v]
-    oldValue = PageRanks[page]
-    newValue = (1-d)/len(web.keys())
+    N = len(web) #Amount of websits (nodes)
+    oldValue = PageRanks[page] #old pageranking value of given page, used to determine difference.
+    newValue = (1-d)/N #Initialize the new values, they all start equal
 
-    for inbound_page in page_in:
-        newValue += d*(PageRanks[inbound_page]/len(web[inbound_page]))
-
-
+    #Check every page in web
+    for p in web.keys():
+        out_links = web[p] #outbound links of current page in for loop.
+        if page in out_links: #The current page links to target page
+            newValue += d * PageRanks[p]/(len(out_links))
+        
+        if not out_links: #The current page is a sink, and should therefore contribute evenly to all pages
+            newValue += d*PageRanks[p] / (N)
     
     return newValue-oldValue
 
@@ -39,13 +43,9 @@ def recursive_PageRank(web, stopvalue=0.0001, max_iterations=200, d=0.85):
     Input: web er et dictionary som i outputtet af "make_web", d er dæmpningen,
     stopvalue er et positivt float, max_iterations er et positivt heltal.
     """
-    #Handle sinks
-    for k,v in web.items():
-        if v == {}:
-            web[k] = web.keys()
 
-    page_ranks = {k: 1/len(web.keys()) for k in web.keys()}
-
+    page_ranks = {k: 1/len(web.keys()) for k in web.keys()} 
+    
     for i in range(max_iterations):
         increments = [rank_update(web, page_ranks, page, d) for page in web.keys()]
         for page, inc in zip(page_ranks, increments):
@@ -56,7 +56,7 @@ def recursive_PageRank(web, stopvalue=0.0001, max_iterations=200, d=0.85):
     return page_ranks, i
 
 #rank_update(W1, 0, "p1", 0)
-rankings, it = recursive_PageRank(W1, 0.0001, 500, 1 )
-print(rankings)
+rankings, it = recursive_PageRank(W1, d=0.85, max_iterations=200, stopvalue=0.0001)
 print(sum(rankings.values()))
 print(it)
+print(rankings)
