@@ -29,7 +29,3 @@ def eigenvector_PageRank(web,d=0.85):
     ranking = {page : rank for page, rank in zip(web, eigenvector)}
     return ranking
 
-x = eigenvector_PageRank(W1)
-
-
-print(f'Ranking bliver altså: {x}')
