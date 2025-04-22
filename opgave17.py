@@ -29,10 +29,6 @@ def modified_link_matrix(web, pagelist, d=0.85):
 
     E = np.ones([N,N])
     
-    return d*A.transpose()+(1-d)*E/N
-
-
-
-modified_link_matrix(W1, list(W1.keys()))
+    return d*A.transpose()+(1-d)*E*(1/N)
 
 
