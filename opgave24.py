@@ -2,6 +2,7 @@ from opgave4 import W1
 from opgave4 import W2
 from opgave17 import modified_link_matrix
 import numpy as np
+from scipy.linalg import null_space
 
 def eigenvector_PageRank(web,d=0.85):
     # Input: web er en ordbog over websider og links.
@@ -12,20 +13,17 @@ def eigenvector_PageRank(web,d=0.85):
 
     # INDSÆT KODE HER
     
-    #variabel oprettes, der opbevarer vores modified link matrix
+    # variabel oprettes, der opbevarer vores modified link matrix
     md = modified_link_matrix(web, list(web),d=d)
 
-    #vi udregner vores eigenværdier og eigenvektorer
-    vals, vects = np.linalg.eig(md)
+    # identitetsmatricen trækkes fra og kernen findes for at finde egenvektoren til egenværdien 1
+    md = md-np.identity(len(web))
+    eigenvector = null_space(md)
 
-    #indeks, der for den eigenværdi, der er tættest på 1
-    index = np.argmin(np.abs(vals - 1))
-
-    #vi definerer og normaliserer vores eigenvektorer
-    eigenvector = vects[:,index]
+    # vektoreren normaliseres så summen af elementerne er 1.
     eigenvector /= sum(eigenvector)
-
+    
     #Vi laver et dictionary, der keys er hjemmesider og values er pageranking
-    ranking = {page : rank for page, rank in zip(web, eigenvector)}
+    ranking = {page : rank[0] for page, rank in zip(web, eigenvector)}
     return ranking
-
+print(eigenvector_PageRank(W1))
