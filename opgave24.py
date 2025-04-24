@@ -22,8 +22,7 @@ def eigenvector_PageRank(web,d=0.85):
 
     # vektoreren normaliseres så summen af elementerne er 1.
     eigenvector /= sum(eigenvector)
-    
+
     #Vi laver et dictionary, der keys er hjemmesider og values er pageranking
     ranking = {page : rank[0] for page, rank in zip(web, eigenvector)}
     return ranking
-print(eigenvector_PageRank(W1))
