@@ -11,13 +11,12 @@ def matrix_PageRank(web,power,d=0.85):
 
     ranking = dict()
 
-    md = modified_link_matrix(web, list(web),d=d)
+    md = modified_link_matrix(web, list(web), d=d)
 
-    for i in range(power):
-        md *= md
-    print(md)
-    #ranking = {}
+    md = np.linalg.matrix_power(md, power)
 
+    ranking = {page : rank for page, rank in zip(web, md[:,0])}
+    
     return ranking
 
-matrix_PageRank(W1,100)
+matrix_PageRank(W1,1)
