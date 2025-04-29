@@ -1,3 +1,8 @@
+import numpy as np
+from opgave17 import modified_link_matrix
+from opgave4 import W1, W2
+
+
 def matrix_PageRank(web,power,d=0.85):
 
     # Input: web er et dictionary med websider og links.
@@ -6,8 +11,13 @@ def matrix_PageRank(web,power,d=0.85):
 
     ranking = dict()
 
-    # INDSÆT KODE HER
+    md = modified_link_matrix(web, list(web),d=d)
 
-    
+    for i in range(power):
+        md *= md
+    print(md)
+    #ranking = {}
 
     return ranking
+
+matrix_PageRank(W1,100)
