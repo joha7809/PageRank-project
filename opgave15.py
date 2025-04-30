@@ -16,21 +16,21 @@ def rank_update(web, PageRanks, page, d) -> tuple[float, dict[str, float]]:
         mellem den tidligere værdi og den opdaterede værdi af PR(p).
     """
     N = len(web) #Amount of websits (nodes)
-    oldValue = PageRanks[page] #old pageranking value of given page, used to determine difference.
-    newValue = (1-d)/N #Initialize the new values, they all start equal
+    old_value = PageRanks[page] #old pageranking value of given page, used to determine difference.
+    new_value = (1-d)/N #Initialize the new values, they all start equal
 
     #Check every page in web
     for p in web.keys():
         out_links = web[p] #outbound links of current page in for loop.
         if page in out_links: #The current page links to target page
-            newValue += d * PageRanks[p]/(len(out_links))
+            new_value += d * PageRanks[p]/(len(out_links))
         
-        if not out_links: #The current page is a sink, and should therefore contribute evenly to all pages
-            newValue += d*PageRanks[p] / (N)
+        if not out_links: #The current page is a sink, and should therefore link to all pages evenly
+            new_value += d*PageRanks[p] / (N)
     
-    return newValue-oldValue
+    return new_value-old_value
 
-def recursive_PageRank(web, stopvalue=0.0001, max_iterations=200, d=0.85):
+def recursive_PageRank(web, stop_value=0.0001, max_iterations=200, d=0.85):
     """
     Implementerer den rekursive version af PageRank-algoritmen ved først at oprette
     en PageRank på 1/N til alle sider (hvor N er det samlede antal sider)
@@ -51,12 +51,6 @@ def recursive_PageRank(web, stopvalue=0.0001, max_iterations=200, d=0.85):
         for page, inc in zip(page_ranks, increments):
             page_ranks[page] += inc
 
-        if max(map(abs, increments)) < stopvalue: break
+        if max(map(abs, increments)) < stop_value: break
 
     return page_ranks, i
-
-#rank_update(W1, 0, "p1", 0)
-rankings, it = recursive_PageRank(W1, d=0.85, max_iterations=200, stopvalue=0.0001)
-print(sum(rankings.values()))
-print(it)
-print(rankings)
