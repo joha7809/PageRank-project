@@ -9,7 +9,7 @@ def plot_ranking(web, ranking, d=0.85):
 
     node_size = 500*len(web.keys())
     
-    page_rank = [rank * node_size for rank in list(ranking.values())]
+    page_size= [rank * node_size for rank in list(ranking.values())]
     nodes = [key for key in web.keys()]
     edges = [(key, target) for key in web.keys() for target in web[key]]
     print("Nodes:", nodes)
@@ -26,7 +26,7 @@ def plot_ranking(web, ranking, d=0.85):
     #pos = nx.spring_layout(G, k=1.5, seed=42)  # Tweak 'k' for spacing
 
 
-    nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=page_rank, font_size=10, font_weight='bold')
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=page_size, font_size=10, font_weight='bold')
     #nx.draw(G, with_labels=True, node_color='lightblue', node_size=700, font_size=10, font_weight='bold', arrowsize=20)
 
     plt.title("Netværk visualiseret som graf")
