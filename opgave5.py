@@ -16,6 +16,6 @@ def make_web(n,k,kmin=0):
         numlinks = random.randint(kmin, k)
         keys_excluded_j = keys[:] # Makes a deep copy of the keys list
         keys_excluded_j.remove(j)
-        web[j] = set(np.random.choice(keys_excluded_j, numlinks, replace=False))
+        web[j] = set(int(link) for link in np.random.choice(keys_excluded_j, numlinks, replace=False))
 
     return web
