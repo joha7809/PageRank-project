@@ -1,7 +1,7 @@
 import numpy as np
 import random
 
-def make_web(n,k,kmin=0):
+def make_web(n,k,kmin=0, seed=2039293273):
 
     # Input: n og k er ikke-negative heltal
     # Output: web er en dictionary med n nøgler.
@@ -11,7 +11,8 @@ def make_web(n,k,kmin=0):
     assert(kmin <= k), "kmin skal være mindre end eller lig med k"
     keys = [n for n in range(0, n)]
     web = dict()
-    
+    random.seed(seed)
+    np.random.seed(seed)
     for j in keys:
         numlinks = random.randint(kmin, k)
         keys_excluded_j = keys[:] # Makes a deep copy of the keys list

@@ -5,7 +5,7 @@ from opgave24 import eigenvector_PageRank
 from opgave35 import matrix_PageRank
 import time
 
-web = make_web(5000,100)
+web = make_web(500,100)
 averages = [0]*4
 times = [0]*4
 d = 0.85
@@ -39,3 +39,17 @@ for i in range(len(averages)):
 
 print(averages)
 print(times)
+
+web2 = make_web(10, 8)
+damps = [0.95, 0.85, 0.75, 0.5, 0.333, 0.0001]
+powers = [34, 30, 27, 19, 15, 3]
+
+for i in range(len(damps)):
+    exact = eigenvector_PageRank(web2, damps[i])
+    approx = matrix_PageRank(web2, powers[i], damps[i])
+    average = 0
+    for page1,page2 in zip(exact.values(),approx.values()):
+        average += abs(page1-page2)
+    #print(approx)
+    average /= len(web)
+    print("average difference from eigen:", average)
