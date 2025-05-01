@@ -2,8 +2,6 @@ import numpy as np
 import random
 
 def make_web(n,k,kmin=0, seed=2039293273):
-
-def make_web(n, k, kmin=0):
     # Input: n og k er ikke-negative heltal
     # Output: web er en dictionary med n nøgler.
     # Værdien af hver nøgle er en liste, der er en delmængde af nøglerne.
